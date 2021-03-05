@@ -1,6 +1,8 @@
 class Movie < ActiveRecord::Base
-  
-  def self.all_ratings
-    %w(G PG PG-13 NC-17 R)
-  end
+    
+    scope :all_ratings, ->{distinct.order("rating").pluck("rating") }
+    scope :with_ratings, ->(selected_ratings) { where(rating:selected_ratings) }
+    scope :order_and_ratings, ->(selected_ratings,order) { where(rating:selected_ratings).order(order)}
 end
+
+
