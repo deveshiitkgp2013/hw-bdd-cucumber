@@ -56,7 +56,9 @@ class MoviesController < ApplicationController
     
     session[:sort] = params[:sort]
     session[:ratings] = params[:ratings]
-    @ratings_to_show = session[:ratings].keys
+    if params.include? :ratings
+      @ratings_to_show = params[:ratings].keys
+    end
     @redirect_params = params
   end
 
